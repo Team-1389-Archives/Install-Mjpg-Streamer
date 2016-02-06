@@ -1,0 +1,21 @@
+<project default="install-mjpeg-streamer">
+
+	<property file="${user.home}/wpilib/wpilib.properties" />
+	<property file="build.properties" />
+	<property file="${user.home}/wpilib/java/${version}/ant/build.properties" />
+
+	<import file="${wpilib.ant.dir}/build.xml" />
+
+	<target name="install-mjpeg-streamer" depends="get-target-ip">
+      <sshexec host="${target}"
+               username="${scp.user}"
+               password=""
+               trust="true"
+               failonerror="false"
+               command="mkdir ${install.dir}"/>
+   		<scp todir="${scp.user}@${target}:${install.dir}" password="" trust="true">
+			<fileset dir="${src.dir}/../mjpg-streamer-roborio/"/>
+		</scp>
+	</target>
+
+</project>
